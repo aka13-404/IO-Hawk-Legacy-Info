@@ -1,51 +1,42 @@
-import tkinter as tk
+# Import the required libraries
+from tkinter import *
 from tkinter import ttk
-from tkinter.messagebox import showinfo
 
-# root window
-root = tk.Tk()
-root.geometry("300x150")
-root.resizable(False, False)
-root.title('Sign In')
+# Create an instance of tkinter frame or window
+win = Tk()
 
-# store email address and password
-email = tk.StringVar()
-password = tk.StringVar()
+# Set the size of the window
+win.geometry("700x350")
 
+running = True
 
-def login_clicked():
-    """ callback when the login button clicked
-    """
-    msg = f'You entered email: {email.get()} and password: {password.get()}'
-    showinfo(
-        title='Information',
-        message=msg
-    )
+# Define a function to print the text in a loop
+def print_text():
+   if running:
+      print("Hello World")
 
+   win.after(1000, print_text)
 
-# Sign in frame
-signin = ttk.Frame(root)
-signin.pack(padx=10, pady=10, fill='x', expand=True)
+# Define a function to start the loop
+def on_start():
+   global running
+   running = True
 
+# Define a function to stop the loop
+def on_stop():
+   global running
+   running = False
 
-# email
-email_label = ttk.Label(signin, text="Email Address:")
-email_label.pack(fill='x', expand=True)
+canvas = Canvas(win, bg="skyblue3", width=600, height=60)
+canvas.create_text(150, 10, text="Click the Start/Stop to execute the Code", font=('', 13))
+canvas.pack()
 
-email_entry = ttk.Entry(signin, textvariable=email)
-email_entry.pack(fill='x', expand=True)
-email_entry.focus()
+# Add a Button to start/stop the loop
+start = ttk.Button(win, text="Start", command=on_start)
+start.pack(padx=10)
 
-# password
-password_label = ttk.Label(signin, text="Password:")
-password_label.pack(fill='x', expand=True)
+stop = ttk.Button(win, text="Stop", command=on_stop)
+stop.pack(padx=10)
 
-password_entry = ttk.Entry(signin, textvariable=password, show="*")
-password_entry.pack(fill='x', expand=True)
-
-# login button
-login_button = ttk.Button(signin, text="Login", command=login_clicked)
-login_button.pack(fill='x', expand=True, pady=10)
-
-
-root.mainloop()
+# Run a function to print text in window
+win.after(1000, print_text)
